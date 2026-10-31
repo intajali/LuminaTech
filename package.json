@@ -1,0 +1,28 @@
+{
+  "name": "luminatech",
+  "version": "0.0.0",
+  "private": true,
+  "packageManager": "pnpm@12.15.0",
+  "engines": {
+    "node": "^22.13.0 || ^24.3.0 || ^26.0.0 || >=27.0.0"
+  },
+  "scripts": {
+    "dev": "pnpm run --parallel dev:mobile dev:api",
+    "dev:mobile": "pnpm --filter @luminatech/mobile start",
+    "dev:api": "pnpm --filter @luminatech/api start:dev",
+    "build": "pnpm --filter @luminatech/contracts build && pnpm --filter @luminatech/api build",
+    "db:generate": "pnpm --filter @luminatech/api db:generate",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "lint": "oxlint --type-aware . && pnpm --filter @luminatech/mobile lint",
+    "typecheck": "pnpm db:generate && pnpm --filter @luminatech/contracts typecheck && pnpm --filter @luminatech/api typecheck && pnpm --filter @luminatech/mobile typecheck",
+    "test": "pnpm -r --if-present test",
+    "check": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm test"
+  },
+  "devDependencies": {
+    "oxlint": "^1.58.0",
+    "oxlint-tsgolint": "^7.0.2001",
+    "prettier": "^3.4.2",
+    "typescript": "~6.0.3"
+  }
+}
